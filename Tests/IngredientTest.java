@@ -1,12 +1,13 @@
-package Tests;
+package tests;
 import org.junit.Test;
+
+import classes.Ingredient;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import Classes.Ingredient;
 
 public class IngredientTest {
 	String name = "Bread";
@@ -94,6 +95,22 @@ public class IngredientTest {
 	
 	@Test
 	public void testRandomQuality() {
+		try {
+			Ingredient.makeRandom(name, 0, 0, singular, plural, -1, 0);
+			fail("Negative price not caught");
+		} catch(IllegalArgumentException e) {}
+		try {
+			Ingredient.makeRandom(name, 0, 0, singular, plural, 1, 0);
+			fail("Inverted price not caught");
+		} catch(IllegalArgumentException e) {}
+		try {
+			Ingredient.makeRandom(name, -1, 0, singular, plural, 0, 0);
+			fail("Negative quality not caught");
+		} catch(IllegalArgumentException e) {}
+		try {
+			Ingredient.makeRandom(name, 1, 0, singular, plural, -1, 0);
+			fail("Inverted quality not caught");
+		} catch(IllegalArgumentException e) {}
 		Ingredient random;
 		double sumQuality = 0.0;
 		double sumPrice = 0.0;
@@ -116,21 +133,5 @@ public class IngredientTest {
 			sumQuality = 0.0;
 			sumPrice = 0.0;
 		}
-		try {
-			Ingredient.makeRandom(name, 0, 0, singular, plural, -1, 0);
-			fail("Negative price not caught");
-		} catch(IllegalArgumentException e) {}
-		try {
-			Ingredient.makeRandom(name, 0, 0, singular, plural, 1, 0);
-			fail("Inverted price not caught");
-		} catch(IllegalArgumentException e) {}
-		try {
-			Ingredient.makeRandom(name, -1, 0, singular, plural, 0, 0);
-			fail("Negative quality not caught");
-		} catch(IllegalArgumentException e) {}
-		try {
-			Ingredient.makeRandom(name, 1, 0, singular, plural, -1, 0);
-			fail("Inverted quality not caught");
-		} catch(IllegalArgumentException e) {}
 	}
 }

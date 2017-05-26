@@ -1,6 +1,11 @@
-package Classes;
+package classes;
+
+import java.util.*;
 
 public class Recipe {
+	
+	Map<Ingredient, Integer> optimal; //It's worth thinking about maybe making an optimal range private class instead of Integer
+	Map<Ingredient, Integer> priority;
 	
 	// A recipe has x number of ingredients
 	// Each recipe takes some amount of each ingredient, using optimal/inoptimal
@@ -13,7 +18,6 @@ public class Recipe {
 	//    -Cheese 5Q 2S
 	//    -Butter 0Q 1Tbs
 	
-	/* public static int cookRecipe(input ingredients) {
-	} */
+	
 
 }

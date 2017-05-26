@@ -1,11 +1,12 @@
-package Tests;
+package tests;
 import org.junit.Test;
+
+import classes.Ingredient;
+import classes.Supplier;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
-
-import Classes.Supplier;
-import Classes.Ingredient;
 
 public class SupplierTests {
 	

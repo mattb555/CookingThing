@@ -1,4 +1,4 @@
-package Classes;
+package classes;
 
 import java.util.Set;
 import java.util.HashSet;
