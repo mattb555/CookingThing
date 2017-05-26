@@ -2,6 +2,7 @@ package Classes;
 
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Random;
 
 public class Ingredient {
 	protected String name;
@@ -18,6 +19,16 @@ public class Ingredient {
 		suffix[1] = plural;
 		this.basePrice = basePrice;
 		tags = new HashSet<String>();
+	}
+	
+	public static Ingredient makeRandom(String name, int lowQuality, int highQuality, String singular, String plural, double lowPrice, double highPrice) {
+		if (lowQuality > highQuality || lowPrice > highPrice || lowQuality < 0 || lowPrice < 0) {
+			throw new IllegalArgumentException("Bad Values");
+		}
+		Random r = new Random();
+		int qual = r.nextInt(highQuality - lowQuality + 1) + lowQuality;
+		double price = (r.nextInt((int)(highPrice * 100) - (int)(lowPrice * 100)) + lowPrice * 100 * 1.0) / 100.0;
+		return new Ingredient(name, qual, singular, plural, price);
 	}
 	
 	public String getName() {

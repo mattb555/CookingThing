@@ -91,4 +91,46 @@ public class IngredientTest {
 		Set<String> tagsTwo = ingredient.getTags();
 		assertEquals(tags, tagsTwo);
 	}
+	
+	@Test
+	public void testRandomQuality() {
+		Ingredient random;
+		double sumQuality = 0.0;
+		double sumPrice = 0.0;
+		for (int j = 0; j < 3; j++) {
+			for (int i = 1; i < 50000; i++) {
+				random = Ingredient.makeRandom(name, j, 5, singular, plural, (j + 2) * 1.00, 6.00 + (j * .5));
+				sumQuality += random.getQuality();
+				sumPrice += random.getBasePrice();
+			}
+			if (j == 0) {
+				assertEquals(sumQuality / 50000, 2.5, .05);
+				assertEquals(sumPrice / 50000, 4.0, .05);
+			} else if (j == 1) {
+				assertEquals(sumQuality / 50000, 3.0, .05);
+				assertEquals(sumPrice / 50000, 4.75, .05);
+			} else {
+				assertEquals(sumQuality / 50000, 3.5, .05);
+				assertEquals(sumPrice / 50000, 5.5, .05);
+			}
+			sumQuality = 0.0;
+			sumPrice = 0.0;
+		}
+		try {
+			Ingredient.makeRandom(name, 0, 0, singular, plural, -1, 0);
+			fail("Negative price not caught");
+		} catch(IllegalArgumentException e) {}
+		try {
+			Ingredient.makeRandom(name, 0, 0, singular, plural, 1, 0);
+			fail("Inverted price not caught");
+		} catch(IllegalArgumentException e) {}
+		try {
+			Ingredient.makeRandom(name, -1, 0, singular, plural, 0, 0);
+			fail("Negative quality not caught");
+		} catch(IllegalArgumentException e) {}
+		try {
+			Ingredient.makeRandom(name, 1, 0, singular, plural, -1, 0);
+			fail("Inverted quality not caught");
+		} catch(IllegalArgumentException e) {}
+	}
 }
